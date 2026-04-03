@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roota - 超越單純的記錄，成就更有質量的生命</title>
+    <style>
+        :root {
+            --forest-green: #2E7D32;
+            --soft-white: #F8FAF8;
+            --sidis-purple: #6D28D9;
+            --accent-gold: #F59E0B;
+            --dark-navy: #0F172A;
+            --zen-blue: #0ea5e9;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+            background-color: var(--soft-white);
+            color: #1a1a1a;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 導航欄 */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 900; color: var(--forest-green); font-size: 1.2rem; text-decoration: none; }
+        .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #555; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--forest-green); }
+
+        /* 英雄區塊 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=2560') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .version-badge {
+            background-color: var(--accent-gold);
+            color: #000;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .logo-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .logo-img:hover { transform: rotate(5deg) scale(1.1); }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: 6px;
+            font-weight: 900;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin: 20px 0 50px;
+            opacity: 0.9;
+            font-weight: 500;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-button:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); }
+
+        /* 特色區塊 */
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--forest-green); margin-bottom: 15px; }
+        .section-title p { color: #888; font-size: 1.1rem; }
+
+        .update-grid {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .update-item {
+            background: white;
+            padding: 35px;
+            border-radius: 35px;
+            display: flex;
+            gap: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.02);
+            transition: 0.3s;
+        }
+        .update-item:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+
+        .emoji-box { 
+            width: 80px; 
+            height: 80px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2.8rem; 
+            background: var(--soft-white); 
+            border-radius: 25px; 
+            margin: 0 auto 20px; 
+        }
+        .update-item h4 { margin: 0 0 12px 0; font-size: 1.3rem; color: var(--forest-green); }
+        .update-item p { color: #666; font-size: 0.95rem; margin: 0; text-align: justify; }
+
+        /* Sidis Pro 定價區塊 */
+        .pricing-section {
+            background-color: var(--dark-navy);
+            padding: 120px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 30px;
+            border-radius: 40px;
+            transition: 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid var(--accent-gold);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--accent-gold);
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .plan-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+        .plan-price { font-size: 2.5rem; font-weight: 900; margin: 20px 0; color: var(--accent-gold); }
+        .plan-price span { font-size: 1rem; color: rgba(255,255,255,0.5); }
+        
+        .plan-features { list-style: none; padding: 0; margin: 30px 0; text-align: left; }
+        .plan-features li { margin-bottom: 15px; font-size: 0.9rem; opacity: 0.8; display: flex; align-items: center; gap: 10px; }
+        .plan-features li::before { content: '✓'; color: var(--accent-gold); font-weight: 900; }
+
+        .btn-select {
+            margin-top: auto;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .featured .btn-select { background: var(--accent-gold); color: #000; }
+        .btn-select:hover { transform: scale(1.05); }
+
+        /* Sidis 區域 */
+        .sidis-section { padding: 120px 20px; background: white; text-align: center; }
+        .sidis-quote { max-width: 900px; margin: 0 auto; font-size: 1.6rem; color: var(--sidis-purple); font-style: italic; line-height: 1.8; position: relative; }
+        .sidis-quote::before { content: '「'; position: absolute; left: -40px; top: -20px; font-size: 4rem; opacity: 0.2; }
+
+        footer {
+            padding: 80px 20px;
+            background: #fdfdfd;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
+        .footer-links a { color: #555; text-decoration: none; font-weight: 600; }
+        .footer-links a:hover { color: var(--forest-green); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .tagline { font-size: 1.1rem; }
+            .update-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; margin: 20px 0; }
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo">
+            <img src="logo.png" alt="Roota Logo">
+            Roota
+        </a>
+        <div class="nav-links">
+            <a href="#updates">核心進化</a>
+            <a href="#features">特色功能</a>
+            <a href="#pricing">定價方案</a>
+            <a href="Roota_Privacy.html">隱私權政策</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="version-badge">V7.2 STABLE • SIDIS 智慧矩陣</div>
+        <img src="logo.png" alt="Roota Logo" class="logo-img">
+        <h1>Roota</h1>
+        <p class="tagline">讓每一次灌溉，都成為生命中值得被記錄的瞬間</p>
+        <a href="#" class="cta-button">
+            <span style="font-size: 1.5rem;"></span> App Store 下載體驗
+        </a>
+    </header>
+
+    <section id="updates" class="new-update-section" style="padding-top: 120px;">
+        <div class="section-title">
+            <h2>今日重點進化：生命手劄</h2>
+            <p>點擊標誌，開啟專屬於你的成長時光機。</p>
+        </div>
+        
+        <div class="update-grid">
+            <div class="update-item">
+                <div class="emoji-box">📅</div>
+                <div>
+                    <h4>全方位成長紀錄</h4>
+                    <p>不只是灌溉日期，現在能記錄每一份努力的心情記事。結合行事曆功能，見證你日積月累的執著。</p>
+                </div>
+            </div>
+            <div class="update-item">
+                <div class="emoji-box">🧘</div>
+                <div>
+                    <h4>心跡自動存檔</h4>
+                    <p>禪定不再只是當下的平靜。系統會自動保存每一次的「心跡墨跡」與智慧箴言，讓你隨時回味靈魂專注的頻率。</p>
+                </div>
+            </div>
+            <div class="update-item">
+                <div class="emoji-box">✍️</div>
+                <div>
+                    <h4>靈動管理與分析</h4>
+                    <p>針對特定日期進行感悟筆記，並提供直覺的刪除與增減功能。讓行事曆隨你的成長腳步動態調整。</p>
+                </div>
+            </div>
+            <div class="update-item">
+                <div class="emoji-box">🧬</div>
+                <div>
+                    <h4>模組化效能革命</h4>
+                    <p>底層代碼全面模組化重構，森林、禪定、診斷各自獨立運行。帶來前所未有的極速反應與系統穩定性。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="sidis-section" style="background: var(--soft-white);">
+        <div class="section-title">
+            <h2>設計與智慧的融合</h2>
+        </div>
+        <div class="update-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="update-item" style="flex-direction: column; text-align: center;">
+                <div class="emoji-box" style="margin: 0 auto 20px;">🌱</div>
+                <h4>會呼吸的植物進化</h4>
+                <p>將冷冰冰的習慣轉化為獨特的數位生命。見證你性格中的朝氣與沉穩。</p>
+            </div>
+            <div class="update-item" style="flex-direction: column; text-align: center;">
+                <div class="emoji-box" style="margin: 0 auto 20px;">🎵</div>
+                <h4>沉浸式專注境音</h4>
+                <p>無論是深海、營火或細雨，在跳出 App 後依然守護你的專注流動。</p>
+            </div>
+            <div class="update-item" style="flex-direction: column; text-align: center;">
+                <div class="emoji-box">
+                    <img src="Sidis.png" alt="Sidis" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--sidis-purple); object-fit: cover;">
+                </div>
+                <h4>Sidis 智慧診斷</h4>
+                <p>透過柔和的語音與文字分析，協助你洞察行為模式並提供溫暖建議。</p>
+            </div>
+            <div class="update-item" style="flex-direction: column; text-align: center;">
+                <div class="emoji-box" style="margin: 0 auto 20px;">📊</div>
+                <h4>視覺化成長週報</h4>
+                <p>將一週的汗水轉化為精確的數據圖表。從數據中看見自己，是進化的第一步。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生活畫廊 (Roota in Life) -->
+    <section class="life-gallery" style="padding: 100px 0; background: white; overflow: hidden;">
+        <div class="section-title">
+            <h2>生活中的 Roota</h2>
+            <p>每一份堅持，都是生命中最特別的明信片</p>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto 50px; text-align: center; color: #666; font-size: 1.1rem; padding: 0 20px;">
+            「我們相信，成長不該只是枯燥的數字。透過 Roota 獨有的<strong>明信片分享系統</strong>，我們將你的習慣數據與生活中的光影瞬間融合，為你的每一份堅持留下溫暖且具象的證明。」
+        </div>
+
+        <div class="gallery-scroll" style="display: flex; gap: 30px; overflow-x: auto; padding: 20px 40px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard2.jpg" alt="Roota Life 1" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">海邊的 15 天連擊</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard3.jpg" alt="Roota Life 2" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">足跡下的 16 天成長</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard4.jpg" alt="Roota Life 3" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">禪意中的 16 天專注</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard5.jpg" alt="Roota Life 4" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">生活藝術的 16 天記錄</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard6.jpg" alt="Roota Life 5" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">藍天下 9 天的耕耘</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard7.jpg" alt="Roota Life 6" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">愛與關懷的 15 天守護</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard8.jpg" alt="Roota Life 7" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">午茶時光 15 天的愜意</p>
+            </div>
+            <div class="gallery-item" style="flex: 0 0 350px; scroll-snap-align: center;">
+                <img src="SharePostcard9.jpg" alt="Roota Life 8" style="width: 100%; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                <p style="text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem;">古宅中 16 天的沉靜</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="section-title">
+            <h2 style="color: white;">選擇你的進化路徑</h2>
+            <p style="color: rgba(255,255,255,0.6);">投資未來，從今天開始解鎖無限可能。</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-name">月度進階方案</div>
+                <div class="plan-price">NT$ 190 <span>/ 月</span></div>
+                <ul class="plan-features">
+                    <li>解除 3 個習慣數量限制</li>
+                    <li>解鎖 Pro 專屬深海/自然境音</li>
+                    <li>全系列植物進化外觀</li>
+                    <li>Sidis 深度行為診斷</li>
+                </ul>
+                <a href="#" class="btn-select">開始體驗</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="plan-badge">最受歡迎</div>
+                <div class="plan-name">年度茁壯方案</div>
+                <div class="plan-price">NT$ 1,290 <span>/ 年</span></div>
+                <p style="color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; margin-bottom: 20px;">平均每月不到 108 元</p>
+                <ul class="plan-features">
+                    <li>包含所有 Pro 專業特權</li>
+                    <li>優先體驗 Sidis 矩陣新功能</li>
+                    <li>年度成長深度分析報告</li>
+                    <li>專屬雲端數據備份 (即將推出)</li>
+                </ul>
+                <a href="#" class="btn-select">立即解鎖</a>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="plan-badge" style="background: var(--zen-blue); color: white;">極致信仰</div>
+                <div class="plan-name">創始人終身版</div>
+                <div class="plan-price">NT$ 3,490</div>
+                <ul class="plan-features">
+                    <li>一次付費，永恆擁有</li>
+                    <li>專屬「黃金創始版」圖示</li>
+                    <li>創始人專屬數位勳章</li>
+                    <li>未來 Sidis 矩陣產品優先准入</li>
+                </ul>
+                <a href="#" class="btn-select">成為創始人</a>
+            </div>
+        </div>
+        <p style="margin-top: 40px; opacity: 0.5; font-size: 0.8rem;">所有訂閱方案均含 7 天免費試用，隨時可取消。</p>
+    </section>
+
+    <section class="sidis-section">
+        <div class="sidis-quote">
+            「我是 Sidis。每一顆種子在破土而出前，都曾安靜地在黑暗中經歷過無數次的紮根。Roota 不僅是工具，更是為了守護你那些看似微小、實則深遠的堅持。讓我們在歲月裡緩慢且堅定地紮根，直到它們長成一片足以遮風避雨的壯闊森林。」
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="Roota_Privacy.html">隱私權政策</a>
+            <a href="mailto:sidis.matrix@gmail.com">技術支援</a>
+            <a href="#">使用條款</a>
+        </div>
+        <p>© 2026 Roota Studio | Chen & Sidis</p>
+        <p>聯絡我們：sidis.matrix@gmail.com</p>
+        <p>今日版本：V7.2 Stable (Sidis Intelligence Architecture)</p>
+        <p>Made with ❤️ in Taipei</p>
+    </footer>
+
+</body>
+</html>
